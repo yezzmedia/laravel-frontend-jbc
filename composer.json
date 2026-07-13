@@ -1,0 +1,48 @@
+{
+    "name": "yezzmedia/laravel-frontend-jbc",
+    "description": "Julisbookcorner.com frontend theme package for the Yezz Media platform.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yezz Media",
+            "email": "info@yezzmedia.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "spatie/laravel-package-tools": "^1.0",
+        "yezzmedia/laravel-foundation": "*@dev",
+        "yezzmedia/laravel-user-content": "*@dev",
+        "yezzmedia/laravel-user-projects": "*@dev"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^11.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "YezzMedia\\FrontendJbc\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "YezzMedia\\FrontendJbc\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "YezzMedia\\FrontendJbc\\FrontendJbcServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
