@@ -73,7 +73,7 @@
                                         <span class="font-medium text-gray-200 transition group-hover:text-[var(--color-brand)]">{{ __('frontend-jbc::ui.navigation.proofreading') }}</span>
                                         <span class="ml-auto text-xs text-gray-600 opacity-0 transition group-hover:opacity-100">&rarr;</span>
                                     </a>
-                                    <a href="https://www.amazon.de/hz/wishlist/ls/19KFDNNI07BK4?ref_=wl_share" class="group flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-all hover:bg-white/[0.04]">
+                                    <a href="{{ route('frontend.wishlist') }}" class="group flex items-center gap-3 rounded-lg px-3 py-3 text-sm transition-all hover:bg-white/[0.04]">
                                         <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-xs font-bold" style="background-color: rgba(255,127,80,0.12); color: var(--color-brand);">W</span>
                                         <span class="font-medium text-gray-200 transition group-hover:text-[var(--color-brand)]">{{ __('frontend-jbc::ui.navigation.wishlist') }}</span>
                                         <span class="ml-auto text-xs text-gray-600 opacity-0 transition group-hover:opacity-100">&rarr;</span>

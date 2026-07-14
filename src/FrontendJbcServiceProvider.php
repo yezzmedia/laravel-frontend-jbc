@@ -6,7 +6,11 @@ namespace YezzMedia\FrontendJbc;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use YezzMedia\Content\Models\Redirect;
+use YezzMedia\Dashboard\Support\HubExtensionRegistry;
 use YezzMedia\Foundation\Support\PlatformPackageRegistrar;
+use YezzMedia\FrontendJbc\Console\Commands\ImportWishlistCommand;
+use YezzMedia\FrontendJbc\Filament\FrontendJbcPlugin;
 use YezzMedia\FrontendJbc\Support\FrontendJbcAddonRegistrar;
 use YezzMedia\UserProjects\Support\InstalledAddonRegistry;
 use YezzMedia\UserProjects\Support\ProjectAddonManager;
@@ -26,6 +30,12 @@ class FrontendJbcServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ImportWishlistCommand::class,
+            ]);
+        }
     }
 
     public function packageBooted(): void
@@ -51,6 +61,8 @@ class FrontendJbcServiceProvider extends PackageServiceProvider
 
         $this->registerInstalledAddons();
         $this->registerProjectAddons();
+        $this->registerPageRedirects();
+        $this->registerHubPlugin();
     }
 
     private function registerInstalledAddons(): void
@@ -86,5 +98,47 @@ class FrontendJbcServiceProvider extends PackageServiceProvider
         if ($projectId !== null) {
             config()->set('user-projects.default_project_id', $projectId);
         }
+    }
+
+    private function registerPageRedirects(): void
+    {
+        if (! class_exists(Redirect::class)) {
+            return;
+        }
+
+        $projectId = config('user-projects.default_project_id');
+
+        if ($projectId === null) {
+            return;
+        }
+
+        if (! class_exists(ProjectAddonManager::class)) {
+            return;
+        }
+
+        try {
+            $manager = $this->app->make(ProjectAddonManager::class);
+
+            foreach ($manager->all() as $addon) {
+                foreach ($addon->pageRedirects as $source) {
+                    Redirect::query()->firstOrCreate(
+                        ['project_id' => $projectId, 'source' => $source],
+                        ['target' => $source, 'status_code' => 301, 'enabled' => true],
+                    );
+                }
+            }
+        } catch (\Throwable) {
+            // Table may not exist yet during install.
+        }
+    }
+
+    private function registerHubPlugin(): void
+    {
+        if (! class_exists(HubExtensionRegistry::class)) {
+            return;
+        }
+
+        $this->app->make(HubExtensionRegistry::class)
+            ->register(FrontendJbcPlugin::class);
     }
 }

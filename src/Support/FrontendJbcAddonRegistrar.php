@@ -30,7 +30,8 @@ class FrontendJbcAddonRegistrar
                     'urlGenerator' => fn ($project) => url('/booklist'),
                 ],
             ],
-            blockedUrls: ['/'],
+            blockedUrls: ['/', '/proofreading', '/vita', '/rating'],
+            pageRedirects: ['/', '/proofreading', '/vita', '/rating'],
         ));
 
         $manager->register(new ProjectAddon(
@@ -41,6 +42,7 @@ class FrontendJbcAddonRegistrar
             urlGenerator: fn ($project) => url('/booklist'),
             sort: 20,
             blockedUrls: ['/booklist*'],
+            pageRedirects: ['/booklist'],
         ));
     }
 }
