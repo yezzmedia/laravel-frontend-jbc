@@ -6,6 +6,7 @@ namespace YezzMedia\FrontendJbc\Filament;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use YezzMedia\FrontendJbc\Pages\InquiriesManagementPage;
 use YezzMedia\FrontendJbc\Pages\WishlistManagementPage;
 
 final class FrontendJbcPlugin implements Plugin
@@ -19,6 +20,7 @@ final class FrontendJbcPlugin implements Plugin
     {
         $panel->pages([
             WishlistManagementPage::class,
+            InquiriesManagementPage::class,
         ]);
     }
 

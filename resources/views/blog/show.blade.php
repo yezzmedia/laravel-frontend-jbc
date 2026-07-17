@@ -14,7 +14,7 @@
             {{ $post->title }}
         </h1>
 
-        <div class="mb-8 flex items-center gap-4 text-sm text-gray-400">
+        <div class="mb-8 flex items-center gap-4 text-sm text-[var(--color-text-secondary)]">
             @if ($post->author_name)
                 <span>{{ __('frontend-jbc::ui.blog.created_by') }} <strong style="color: var(--color-brand);">{{ $post->author_name }}</strong></span>
             @endif

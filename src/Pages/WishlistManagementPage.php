@@ -12,7 +12,7 @@ use YezzMedia\UserProjects\Models\Project;
 
 class WishlistManagementPage extends DashboardPage
 {
-    protected static string $view = 'frontend-jbc::wishlist.management';
+    protected string $view = 'frontend-jbc::wishlist.management';
 
     protected static bool $shouldRegisterNavigation = false;
 

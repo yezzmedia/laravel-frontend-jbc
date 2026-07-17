@@ -67,7 +67,7 @@ return [
     | Known page slugs that are served by the static pages module.
     |
     */
-    'static_pages' => ['vita', 'rating', 'privacy', 'imprint'],
+    'static_pages' => [],
 
     /*
     |--------------------------------------------------------------------------

@@ -28,11 +28,39 @@
     <style>
         :root {
             --color-surface: #212529;
+            --color-surface-alt: #1a1d21;
             --color-brand: #FF7F50;
-            --color-brand-foreground: #FFF;
+            --color-brand-foreground: #fff;
             --color-border-muted: #565454;
+            --color-text-primary: #d1d5db;
+            --color-text-secondary: #9ca3af;
+            --color-text-muted: #6b7280;
+            --color-text-nav: #e5e7eb;
+        }
+
+        :root.light {
+            --color-surface: #dbcfbc;
+            --color-surface-alt: #d3c7b4;
+            --color-brand: #b85d1a;
+            --color-brand-foreground: #1a1a2e;
+            --color-border-muted: #b8ad9e;
+            --color-text-primary: #374151;
+            --color-text-secondary: #6b7280;
+            --color-text-muted: #9ca3af;
+            --color-text-nav: #374151;
         }
     </style>
+
+    <script>
+        (function () {
+            var stored = localStorage.getItem('theme');
+            if (stored === 'light') {
+                document.documentElement.classList.add('light');
+            } else if (stored === 'dark') {
+                document.documentElement.classList.remove('light');
+            }
+        })();
+    </script>
 </head>
 <body class="min-h-screen text-lg antialiased md:text-2xl" style="background-color: var(--color-surface); color: var(--color-brand-foreground); font-family: 'Yanone Kaffeesatz', sans-serif;">
 

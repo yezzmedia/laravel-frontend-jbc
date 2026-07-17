@@ -12,16 +12,16 @@
                 <h1 class="text-4xl font-semibold md:text-5xl" style="color: var(--color-brand);">
                     {{ __('frontend-jbc::ui.wishlist.title') }}
                 </h1>
-                <p class="mt-6 text-lg leading-relaxed text-gray-400">
+                <p class="mt-6 text-lg leading-relaxed text-[var(--color-text-secondary)]">
                     {{ __('frontend-jbc::ui.wishlist.intro') }}
                 </p>
             </div>
             <div class="flex justify-center lg:col-span-2 lg:justify-end">
                 <div class="flex h-64 w-64 flex-col items-center justify-center rounded-full border-4 p-8 text-center" style="border-color: var(--color-brand);">
                     <p class="text-4xl font-light tracking-tight" style="color: var(--color-brand);">{{ $totalBooks }}</p>
-                    <p class="mt-2 text-sm uppercase tracking-wider text-gray-400">{{ __('frontend-jbc::ui.wishlist.total') }}</p>
+                    <p class="mt-2 text-sm uppercase tracking-wider text-[var(--color-text-secondary)]">{{ __('frontend-jbc::ui.wishlist.total') }}</p>
                     @if ($averageRating !== null)
-                        <div class="mt-3 flex items-center gap-1 text-sm text-gray-400">
+                        <div class="mt-3 flex items-center gap-1 text-sm text-[var(--color-text-secondary)]">
                             <svg class="h-4 w-4" style="color: var(--color-brand);" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                             <span>O {{ number_format($averageRating, 1, ',', '.') }}</span>
                         </div>
@@ -36,7 +36,7 @@
     {{-- Amazon Wishlist CTA --}}
     <section class="py-8 md:py-10">
         <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p class="text-lg text-gray-400">
+            <p class="text-lg text-[var(--color-text-secondary)]">
                 {{ __('frontend-jbc::ui.wishlist.amazon_cta') }}
             </p>
             @if (config('frontend-jbc.wishlist_url'))
@@ -63,7 +63,7 @@
                             </div>
                         @else
                             <div class="mb-4 flex h-56 items-center justify-center border" style="border-color: var(--color-border-muted);">
-                                <span class="text-sm text-gray-600">{{ __('frontend-jbc::ui.books.no_cover') }}</span>
+                                <span class="text-sm text-[var(--color-text-muted)]">{{ __('frontend-jbc::ui.books.no_cover') }}</span>
                             </div>
                         @endif
 
@@ -72,18 +72,18 @@
                         </h3>
 
                         @if ($book->author)
-                            <p class="mt-2 text-base text-gray-400">{{ $book->author }}</p>
+                            <p class="mt-2 text-base text-[var(--color-text-secondary)]">{{ $book->author }}</p>
                         @endif
 
                         <div class="mt-3 flex items-center gap-3 text-sm">
                             @if ($book->rating !== null)
-                                <div class="flex items-center gap-1 text-gray-400">
+                                <div class="flex items-center gap-1 text-[var(--color-text-secondary)]">
                                     <svg class="h-4 w-4" style="color: var(--color-brand);" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                                     <span>{{ number_format((float) $book->rating, 1, ',', '.') }}</span>
                                 </div>
                             @endif
                             @if ($book->price)
-                                <span class="text-gray-500">{{ $book->price }}</span>
+                                <span class="text-[var(--color-text-muted)]">{{ $book->price }}</span>
                             @endif
                         </div>
 
@@ -100,11 +100,11 @@
             </div>
         @else
             <div class="py-20 text-center">
-                <svg class="mx-auto h-12 w-12 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                <svg class="mx-auto h-12 w-12 text-[var(--color-text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
                 </svg>
-                <p class="mt-6 text-lg text-gray-600">{{ __('frontend-jbc::ui.wishlist.empty') }}</p>
-                <p class="mt-2 text-base text-gray-600">{{ __('frontend-jbc::ui.wishlist.empty_hint') }}</p>
+                <p class="mt-6 text-lg text-[var(--color-text-muted)]">{{ __('frontend-jbc::ui.wishlist.empty') }}</p>
+                <p class="mt-2 text-base text-[var(--color-text-muted)]">{{ __('frontend-jbc::ui.wishlist.empty_hint') }}</p>
             </div>
         @endif
     </section>
