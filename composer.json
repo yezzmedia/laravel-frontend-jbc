@@ -3,6 +3,7 @@
     "description": "Julisbookcorner.com frontend theme package for the Yezz Media platform.",
     "type": "library",
     "license": "MIT",
+    "version": "0.1.0",
     "authors": [
         {
             "name": "Yezz Media",
