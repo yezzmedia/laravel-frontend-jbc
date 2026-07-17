@@ -13,6 +13,11 @@ class BookController
     {
         $project = view()->shared('project');
 
+        $totalBooksRead = Book::query()->forProject($project->id)->read()->count();
+        $totalPagesRead = Book::query()->forProject($project->id)->read()->sum('pages');
+        $latestBook = Book::query()->forProject($project->id)->read()->latest('read_date')->first();
+        $booksThisYear = Book::query()->forProject($project->id)->read()->whereYear('read_date', date('Y'))->count();
+
         $readBooks = Book::query()
             ->forProject($project->id)
             ->read()
@@ -34,6 +39,10 @@ class BookController
             ->get();
 
         return view('frontend-jbc::books.index', [
+            'totalBooksRead' => $totalBooksRead,
+            'totalPagesRead' => $totalPagesRead,
+            'latestBook' => $latestBook,
+            'booksThisYear' => $booksThisYear,
             'readBooks' => $readBooks,
             'readingBooks' => $readingBooks,
             'unreadBooks' => $unreadBooks,

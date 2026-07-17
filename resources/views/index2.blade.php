@@ -10,7 +10,7 @@
             <h1 class="text-5xl font-semibold md:text-6xl" style="color: var(--color-brand-foreground);">
                 {{ config('frontend-jbc.site_name') }}
             </h1>
-            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-gray-400">
+            <p class="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-[var(--color-text-secondary)]">
                 {{ Str::limit(__('frontend-jbc::ui.home.about_text'), 180) }}
             </p>
         </div>
@@ -22,7 +22,7 @@
             <h2 class="text-2xl font-semibold md:text-3xl" style="color: var(--color-brand);">
                 {{ __('frontend-jbc::ui.home.latest_posts') }}
             </h2>
-            <a href="{{ route('frontend.blog') }}" class="text-sm text-gray-500 transition hover:text-[var(--color-brand)]">
+            <a href="{{ route('frontend.blog') }}" class="text-sm text-[var(--color-text-muted)] transition hover:text-[var(--color-brand)]">
                 {{ __('frontend-jbc::ui.home.view_all') }} &rarr;
             </a>
         </div>
@@ -35,11 +35,11 @@
                             <div class="h-52 w-full bg-cover bg-center transition duration-700 group-hover:scale-105" style="background-image: url('{{ $post->featured_image }}');"></div>
                         @else
                             <div class="flex h-52 w-full items-center justify-center border-b" style="border-color: var(--color-border-muted); background-color: var(--color-surface);">
-                                <span class="text-sm text-gray-600">{{ __('frontend-jbc::ui.blog.no_image') }}</span>
+                                <span class="text-sm text-[var(--color-text-muted)]">{{ __('frontend-jbc::ui.blog.no_image') }}</span>
                             </div>
                         @endif
                         <div class="p-5">
-                            <div class="mb-2 flex items-center gap-2 text-xs text-gray-500">
+                            <div class="mb-2 flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
                                 @if ($post->author_name)
                                     <span>{{ $post->author_name }}</span>
                                 @endif
@@ -52,14 +52,14 @@
                                 {{ $post->title }}
                             </h3>
                             @if ($post->excerpt)
-                                <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-gray-400">{{ $post->excerpt }}</p>
+                                <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-[var(--color-text-secondary)]">{{ $post->excerpt }}</p>
                             @endif
                         </div>
                     </a>
                 @endforeach
             </div>
         @else
-            <p class="py-16 text-center text-gray-600">{{ __('frontend-jbc::ui.blog.no_posts') }}</p>
+            <p class="py-16 text-center text-[var(--color-text-muted)]">{{ __('frontend-jbc::ui.blog.no_posts') }}</p>
         @endif
     </section>
 
@@ -72,7 +72,7 @@
                 <h2 class="text-2xl font-semibold md:text-3xl" style="color: var(--color-brand);">
                     {{ __('frontend-jbc::ui.home.about_title') }}
                 </h2>
-                <p class="mt-6 text-lg leading-relaxed text-gray-300">
+                <p class="mt-6 text-lg leading-relaxed text-[var(--color-text-primary)]">
                     {{ __('frontend-jbc::ui.home.about_text') }}
                 </p>
                 <div class="mt-6">
@@ -109,10 +109,10 @@
             </div>
             <div>
                 <h2 class="text-2xl font-semibold md:text-3xl" style="color: var(--color-brand);">{{ __('frontend-jbc::ui.home.proofreading_title') }}</h2>
-                <p class="mt-5 text-lg leading-relaxed text-gray-300">
+                <p class="mt-5 text-lg leading-relaxed text-[var(--color-text-primary)]">
                     {{ __('frontend-jbc::ui.home.proofreading_text_1') }}
                 </p>
-                <p class="mt-4 text-lg leading-relaxed text-gray-400">
+                <p class="mt-4 text-lg leading-relaxed text-[var(--color-text-secondary)]">
                     {{ __('frontend-jbc::ui.home.proofreading_text_2') }}
                 </p>
                 <a href="{{ url('/proofreading') }}" class="mt-6 inline-flex items-center gap-1 text-sm transition hover:gap-2" style="color: var(--color-brand);">
@@ -135,19 +135,19 @@
                 {{-- Total Books Read --}}
                 <div class="border p-6 text-center" style="border-color: var(--color-border-muted);">
                     <p class="text-4xl font-light tracking-tight" style="color: var(--color-brand);">{{ $totalBooksRead }}</p>
-                    <p class="mt-2 text-xs uppercase tracking-wider text-gray-500">{{ __('frontend-jbc::ui.books.total_read') }}</p>
+                    <p class="mt-2 text-xs uppercase tracking-wider text-[var(--color-text-muted)]">{{ __('frontend-jbc::ui.books.total_read') }}</p>
                 </div>
 
                 {{-- Pages Read --}}
                 <div class="border p-6 text-center" style="border-color: var(--color-border-muted);">
                     <p class="text-4xl font-light tracking-tight" style="color: var(--color-brand);">{{ number_format($totalPagesRead, 0, ',', '.') }}</p>
-                    <p class="mt-2 text-xs uppercase tracking-wider text-gray-500">{{ __('frontend-jbc::ui.books.total_pages') }}</p>
+                    <p class="mt-2 text-xs uppercase tracking-wider text-[var(--color-text-muted)]">{{ __('frontend-jbc::ui.books.total_pages') }}</p>
                 </div>
 
                 {{-- This Year --}}
                 <div class="border p-6 text-center" style="border-color: var(--color-border-muted);">
                     <p class="text-4xl font-light tracking-tight" style="color: var(--color-brand);">{{ $booksThisYear }}</p>
-                    <p class="mt-2 text-xs uppercase tracking-wider text-gray-500">{{ __('frontend-jbc::ui.books.this_year', ['year' => date('Y')]) }}</p>
+                    <p class="mt-2 text-xs uppercase tracking-wider text-[var(--color-text-muted)]">{{ __('frontend-jbc::ui.books.this_year', ['year' => date('Y')]) }}</p>
                 </div>
 
                 {{-- Latest Book --}}
@@ -155,9 +155,9 @@
                     <p class="text-xs uppercase tracking-wider" style="color: var(--color-brand);">{{ __('frontend-jbc::ui.books.latest') }}</p>
                     @if ($latestBook)
                         <p class="mt-2 text-lg font-medium leading-snug" style="color: var(--color-brand-foreground);">{{ $latestBook->title }}</p>
-                        <p class="mt-1 text-base text-gray-500">{{ $latestBook->author }}</p>
+                        <p class="mt-1 text-base text-[var(--color-text-muted)]">{{ $latestBook->author }}</p>
                     @else
-                        <p class="mt-2 text-sm text-gray-600">{{ __('frontend-jbc::ui.books.no_book') }}</p>
+                        <p class="mt-2 text-sm text-[var(--color-text-muted)]">{{ __('frontend-jbc::ui.books.no_book') }}</p>
                     @endif
                 </div>
             </div>
@@ -186,7 +186,7 @@
                 <h3 class="mt-5 text-2xl font-medium" style="color: var(--color-brand-foreground);">
                     {{ __('frontend-jbc::ui.home.team_me_title') }}
                 </h3>
-                <p class="mt-3 text-lg leading-relaxed text-gray-400">{{ __('frontend-jbc::ui.home.team_me_text') }}</p>
+                <p class="mt-3 text-lg leading-relaxed text-[var(--color-text-secondary)]">{{ __('frontend-jbc::ui.home.team_me_text') }}</p>
             </div>
             <div class="text-center">
                 <div class="mx-auto h-36 w-36 overflow-hidden rounded-full border-4" style="border-color: var(--color-brand);">
@@ -195,7 +195,7 @@
                 <h3 class="mt-5 text-2xl font-medium" style="color: var(--color-brand-foreground);">
                     {{ __('frontend-jbc::ui.home.team_family_title') }}
                 </h3>
-                <p class="mt-3 text-lg leading-relaxed text-gray-400">{{ __('frontend-jbc::ui.home.team_family_text') }}</p>
+                <p class="mt-3 text-lg leading-relaxed text-[var(--color-text-secondary)]">{{ __('frontend-jbc::ui.home.team_family_text') }}</p>
             </div>
             <div class="text-center">
                 <div class="mx-auto h-36 w-36 overflow-hidden rounded-full border-4" style="border-color: var(--color-brand);">
@@ -204,7 +204,7 @@
                 <h3 class="mt-5 text-2xl font-medium" style="color: var(--color-brand-foreground);">
                     {{ __('frontend-jbc::ui.home.team_cats_title') }}
                 </h3>
-                <p class="mt-3 text-lg leading-relaxed text-gray-400">{{ __('frontend-jbc::ui.home.team_cats_text') }}</p>
+                <p class="mt-3 text-lg leading-relaxed text-[var(--color-text-secondary)]">{{ __('frontend-jbc::ui.home.team_cats_text') }}</p>
             </div>
         </div>
     </section>

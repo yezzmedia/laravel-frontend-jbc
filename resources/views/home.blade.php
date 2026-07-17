@@ -23,7 +23,7 @@
     {{-- Latest Posts --}}
     <section id="favorites" class="mb-16">
         <h2 class="mb-2 text-4xl" style="color: var(--color-brand);">{{ __('frontend-jbc::ui.home.latest_posts') }}</h2>
-        <p class="mb-8 text-gray-400">{{ __('frontend-jbc::ui.home.latest_posts_desc') }}</p>
+        <p class="mb-8 text-[var(--color-text-secondary)]">{{ __('frontend-jbc::ui.home.latest_posts_desc') }}</p>
 
         @if ($latestPosts->isNotEmpty())
             <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -32,7 +32,7 @@
                 @endforeach
             </div>
         @else
-            <p class="text-gray-500 italic">{{ __('frontend-jbc::ui.blog.no_posts') }}</p>
+            <p class="text-[var(--color-text-muted)] italic">{{ __('frontend-jbc::ui.blog.no_posts') }}</p>
         @endif
     </section>
 
@@ -42,7 +42,7 @@
     <section id="team" class="space-y-20">
         <div>
             <h2 class="mb-2 text-4xl" style="color: var(--color-brand);">{{ __('frontend-jbc::ui.home.team_title') }}</h2>
-            <p class="max-w-3xl leading-relaxed text-gray-400">{{ __('frontend-jbc::ui.home.team_desc') }}</p>
+            <p class="max-w-3xl leading-relaxed text-[var(--color-text-secondary)]">{{ __('frontend-jbc::ui.home.team_desc') }}</p>
         </div>
 
         <x-frontend-jbc::team-card

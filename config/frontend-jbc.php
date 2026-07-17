@@ -67,7 +67,7 @@ return [
     | Known page slugs that are served by the static pages module.
     |
     */
-    'static_pages' => ['proofreading', 'vita', 'rating', 'privacy', 'imprint'],
+    'static_pages' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -75,5 +75,12 @@ return [
     |--------------------------------------------------------------------------
     */
     'navigation_sections' => ['header', 'footer'],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Wishlist
+    |--------------------------------------------------------------------------
+    */
+    'wishlist_url' => env('FRONTEND_JBC_WISHLIST_URL', 'https://www.amazon.de/hz/wishlist/ls/19KFDNNI07BK4'),
 
 ];

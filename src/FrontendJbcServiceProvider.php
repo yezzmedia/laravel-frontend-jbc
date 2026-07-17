@@ -6,7 +6,13 @@ namespace YezzMedia\FrontendJbc;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use YezzMedia\Content\Models\FormDefinition;
+use YezzMedia\Content\Models\Page;
+use YezzMedia\Content\Models\Redirect;
+use YezzMedia\Dashboard\Support\HubExtensionRegistry;
 use YezzMedia\Foundation\Support\PlatformPackageRegistrar;
+use YezzMedia\FrontendJbc\Console\Commands\ImportWishlistCommand;
+use YezzMedia\FrontendJbc\Filament\FrontendJbcPlugin;
 use YezzMedia\FrontendJbc\Support\FrontendJbcAddonRegistrar;
 use YezzMedia\UserProjects\Support\InstalledAddonRegistry;
 use YezzMedia\UserProjects\Support\ProjectAddonManager;
@@ -26,6 +32,14 @@ class FrontendJbcServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ImportWishlistCommand::class,
+            ]);
+        }
+
+        $this->registerHubPlugin();
     }
 
     public function packageBooted(): void
@@ -51,6 +65,9 @@ class FrontendJbcServiceProvider extends PackageServiceProvider
 
         $this->registerInstalledAddons();
         $this->registerProjectAddons();
+        $this->registerPageRedirects();
+        $this->registerLegalPages();
+        $this->registerProofreadingForm();
     }
 
     private function registerInstalledAddons(): void
@@ -86,5 +103,124 @@ class FrontendJbcServiceProvider extends PackageServiceProvider
         if ($projectId !== null) {
             config()->set('user-projects.default_project_id', $projectId);
         }
+    }
+
+    private function registerPageRedirects(): void
+    {
+        if (! class_exists(Redirect::class)) {
+            return;
+        }
+
+        $projectId = config('user-projects.default_project_id');
+
+        if ($projectId === null) {
+            return;
+        }
+
+        if (! class_exists(ProjectAddonManager::class)) {
+            return;
+        }
+
+        try {
+            $manager = $this->app->make(ProjectAddonManager::class);
+
+            foreach ($manager->all() as $addon) {
+                foreach ($addon->pageRedirects as $source) {
+                    Redirect::query()->firstOrCreate(
+                        ['project_id' => $projectId, 'source' => $source],
+                        ['target' => $source, 'status_code' => 301, 'enabled' => true],
+                    );
+                }
+            }
+        } catch (\Throwable) {
+            // Table may not exist yet during install.
+        }
+    }
+
+    private function registerLegalPages(): void
+    {
+        if (! class_exists(Page::class)) {
+            return;
+        }
+
+        $projectId = config('user-projects.default_project_id');
+
+        if ($projectId === null) {
+            return;
+        }
+
+        try {
+            $privacyContent = file_get_contents(__DIR__.'/../resources/legal/privacy.html');
+            $imprintContent = file_get_contents(__DIR__.'/../resources/legal/imprint.html');
+
+            if ($privacyContent !== false) {
+                Page::query()->firstOrCreate(
+                    ['project_id' => $projectId, 'slug' => 'privacy'],
+                    [
+                        'title' => 'Datenschutzerklaerung',
+                        'content' => $privacyContent,
+                        'status' => 'published',
+                        'meta_description' => 'Datenschutzerklaerung von Julisbookcorner',
+                    ],
+                );
+            }
+
+            if ($imprintContent !== false) {
+                Page::query()->firstOrCreate(
+                    ['project_id' => $projectId, 'slug' => 'imprint'],
+                    [
+                        'title' => 'Impressum',
+                        'content' => $imprintContent,
+                        'status' => 'published',
+                        'meta_description' => 'Impressum von Julisbookcorner',
+                    ],
+                );
+            }
+        } catch (\Throwable) {
+            // Table may not exist yet during install.
+        }
+    }
+
+    private function registerProofreadingForm(): void
+    {
+        if (! class_exists(FormDefinition::class)) {
+            return;
+        }
+
+        $projectId = config('user-projects.default_project_id');
+
+        if ($projectId === null) {
+            return;
+        }
+
+        try {
+            FormDefinition::query()->firstOrCreate(
+                ['project_id' => $projectId, 'name' => 'Proofreading Contact'],
+                [
+                    'fields' => [
+                        ['key' => 'name', 'type' => 'text', 'label' => 'Name', 'required' => true],
+                        ['key' => 'email', 'type' => 'email', 'label' => 'E-Mail', 'required' => true],
+                        ['key' => 'message', 'type' => 'textarea', 'label' => 'Nachricht', 'required' => true],
+                    ],
+                    'options' => [
+                        'honeypot' => true,
+                        'rate_limit' => 3,
+                        'rate_limit_period' => 300,
+                    ],
+                ],
+            );
+        } catch (\Throwable) {
+            // Table may not exist yet during install.
+        }
+    }
+
+    private function registerHubPlugin(): void
+    {
+        if (! class_exists(HubExtensionRegistry::class)) {
+            return;
+        }
+
+        $this->app->make(HubExtensionRegistry::class)
+            ->register(FrontendJbcPlugin::class);
     }
 }

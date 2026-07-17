@@ -8,6 +8,6 @@
     </div>
     <div>
         <h3 class="mb-3 text-3xl" style="color: var(--color-brand);">{{ $title }}</h3>
-        <p class="max-w-xl leading-relaxed text-gray-300">{{ $text }}</p>
+        <p class="max-w-xl leading-relaxed text-[var(--color-text-primary)]">{{ $text }}</p>
     </div>
 </div>

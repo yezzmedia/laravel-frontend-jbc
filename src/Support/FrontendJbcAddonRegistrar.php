@@ -29,8 +29,19 @@ class FrontendJbcAddonRegistrar
                     'icon' => 'book-open',
                     'urlGenerator' => fn ($project) => url('/booklist'),
                 ],
+                [
+                    'label' => 'Wishlist Import',
+                    'icon' => 'arrow-down-tray',
+                    'urlGenerator' => fn ($project) => url('/hub/frontend-jbc/wishlist?project='.$project->id),
+                ],
+                [
+                    'label' => 'Inquiries',
+                    'icon' => 'inbox-arrow-down',
+                    'urlGenerator' => fn ($project) => url('/hub/frontend-jbc/inquiries?project='.$project->id),
+                ],
             ],
-            blockedUrls: ['/'],
+            blockedUrls: ['/', '/proofreading', '/vita', '/rating', '/wishlist'],
+            pageRedirects: ['/', '/proofreading', '/vita', '/rating', '/wishlist', '/privacy', '/imprint', '/consent'],
         ));
 
         $manager->register(new ProjectAddon(
@@ -41,6 +52,7 @@ class FrontendJbcAddonRegistrar
             urlGenerator: fn ($project) => url('/booklist'),
             sort: 20,
             blockedUrls: ['/booklist*'],
+            pageRedirects: ['/booklist'],
         ));
     }
 }
